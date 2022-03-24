@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: spring-petclinic-gitops
   labels:
-    app.kubernetes.io/part-of: spring-petclinic-app
+    app.kubernetes.io/part-of: petclinic-server
     apps.kubernetes.io/name: spring-petclinic-gitops
     apps.tanzu.vmware.com/has-tests: "true"
     apps.tanzu.vmware.com/workload-type: web
@@ -13,22 +13,22 @@ spec:
   template:
     metadata:
       annotations:
-        boot.spring.io/actuator: http://:8080/actuator
+        boot.spring.io/actuator: http://:8081/actuator
         boot.spring.io/version: 2.5.4
         conventions.apps.tanzu.vmware.com/applied-conventions: |-
-          appliveview-sample/app-live-view-connector
-          appliveview-sample/app-live-view-appflavours
-          appliveview-sample/app-live-view-systemproperties
           spring-boot-convention/spring-boot
           spring-boot-convention/spring-boot-graceful-shutdown
           spring-boot-convention/spring-boot-web
           spring-boot-convention/spring-boot-actuator
           spring-boot-convention/service-intent-mysql
+          appliveview-sample/app-live-view-connector
+          appliveview-sample/app-live-view-appflavours
+          appliveview-sample/app-live-view-systemproperties
         developer.conventions/target-containers: workload
         services.conventions.apps.tanzu.vmware.com/mysql: mysql-connector-java/8.0.26
       labels:
         app.kubernetes.io/component: run
-        app.kubernetes.io/part-of: spring-petclinic-app
+        app.kubernetes.io/part-of: petclinic-server
         apps.kubernetes.io/name: spring-petclinic-gitops
         apps.tanzu.vmware.com/has-tests: "true"
         apps.tanzu.vmware.com/workload-type: web
@@ -36,6 +36,7 @@ spec:
         conventions.apps.tanzu.vmware.com/framework: spring-boot
         services.conventions.apps.tanzu.vmware.com/mysql: workload
         tanzu.app.live.view: "true"
+        tanzu.app.live.view.application.actuator.port: "8081"
         tanzu.app.live.view.application.flavours: spring-boot
         tanzu.app.live.view.application.name: petclinic
     spec:
@@ -46,8 +47,8 @@ spec:
         - name: JAVA_TOOL_OPTIONS
           value: |-
             -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=9005
-             -Dmanagement.endpoint.health.show-details="always" -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include="*" -Dmanagement.server.port="8080" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s" -Dspring.devtools.restart.enabled="true" -Dspring.devtools.restart.poll-interval="2s" -Dspring.devtools.restart.quiet-period="1s"
-        image: dev.registry.tanzu.vmware.com/tanzu-advanced-edition/msrinivasssa/apps/spring-petclinic-gitops-my-apps@sha256:6b8698030db09ac0d37c72046bd36f837eeffa031938466d5035d3670e7bbfa8
+             -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s" -Dspring.devtools.restart.enabled="true" -Dspring.devtools.restart.poll-interval="2s" -Dspring.devtools.restart.quiet-period="1s"
+        image: harbor-repo.vmware.com/tanzu_aee/msrinivasssa/apps/spring-petclinic-gitops-my-apps@sha256:3b1eb962a222570b580138fd078b1b1478538a221e63d4261ca232f4d3a27db6
         name: workload
         ports:
         - containerPort: 8080
