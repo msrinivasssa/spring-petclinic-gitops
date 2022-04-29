@@ -1,16 +1,14 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: spring-petclinic-gitops-02
+  name: spring-petclinic-gitops
   labels:
     app.kubernetes.io/part-of: petclinic-server
     apps.kubernetes.io/name: spring-petclinic-gitops
     apps.tanzu.vmware.com/has-tests: "true"
     apps.tanzu.vmware.com/workload-type: web
-    velero.io/backup-name: tap-apps-290422
-    velero.io/restore-name: tap-apps-290422-20220429154218
     app.kubernetes.io/component: run
-    carto.run/workload-name: spring-petclinic-gitops-02
+    carto.run/workload-name: spring-petclinic-gitops
 spec:
   template:
     metadata:
@@ -34,15 +32,13 @@ spec:
         apps.kubernetes.io/name: spring-petclinic-gitops
         apps.tanzu.vmware.com/has-tests: "true"
         apps.tanzu.vmware.com/workload-type: web
-        carto.run/workload-name: spring-petclinic-gitops-02
+        carto.run/workload-name: spring-petclinic-gitops
         conventions.apps.tanzu.vmware.com/framework: spring-boot
         services.conventions.apps.tanzu.vmware.com/mysql: workload
         tanzu.app.live.view: "true"
         tanzu.app.live.view.application.actuator.port: "8081"
         tanzu.app.live.view.application.flavours: spring-boot
         tanzu.app.live.view.application.name: petclinic
-        velero.io/backup-name: tap-apps-290422
-        velero.io/restore-name: tap-apps-290422-20220429154218
     spec:
       containers:
       - env:
@@ -52,7 +48,7 @@ spec:
           value: |-
             -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=9005
              -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s" -Dspring.devtools.restart.enabled="true" -Dspring.devtools.restart.poll-interval="2s" -Dspring.devtools.restart.quiet-period="1s"
-        image: cloudfocusedreg.azurecr.io/tap-integration-repo/msrinivasssa/apps/spring-petclinic-gitops-02-my-apps@sha256:7016566d1147244632b4e5f40ae559022c5a7896d4e1d0f7d8f4263f8b41a178
+        image: cloudfocusedreg.azurecr.io/tkg153/msrinivasssa/apps/spring-petclinic-gitops-my-apps@sha256:34f371a1df5333bece224ff2a2621aeb086ea751979815cc57550beffabbfab6
         name: workload
         ports:
         - containerPort: 8080
