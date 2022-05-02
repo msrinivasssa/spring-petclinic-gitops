@@ -7,8 +7,6 @@ metadata:
     apps.kubernetes.io/name: spring-petclinic-gitops
     apps.tanzu.vmware.com/has-tests: "true"
     apps.tanzu.vmware.com/workload-type: web
-    velero.io/backup-name: tap-apps-290422
-    velero.io/restore-name: tap-apps-290422-20220502092854
     app.kubernetes.io/component: run
     carto.run/workload-name: spring-petclinic-gitops-02
 spec:
@@ -41,8 +39,6 @@ spec:
         tanzu.app.live.view.application.actuator.port: "8081"
         tanzu.app.live.view.application.flavours: spring-boot
         tanzu.app.live.view.application.name: petclinic
-        velero.io/backup-name: tap-apps-290422
-        velero.io/restore-name: tap-apps-290422-20220502092854
     spec:
       containers:
       - env:
@@ -52,7 +48,7 @@ spec:
           value: |-
             -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=9005
              -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s" -Dspring.devtools.restart.enabled="true" -Dspring.devtools.restart.poll-interval="2s" -Dspring.devtools.restart.quiet-period="1s"
-        image: cloudfocusedreg.azurecr.io/tap-integration-repo/msrinivasssa/apps/spring-petclinic-gitops-02-my-apps@sha256:5ebd5f76ffbb76ed0a2e4cd14de950777afc2317f124ae47a098d69ceb36c574
+        image: cloudfocusedreg.azurecr.io/tap-integration-repo/msrinivasssa/apps/spring-petclinic-gitops-02-my-apps@sha256:0d5d43a7f4dab4613a57ab9f6be85dd7be1e0a32c2389dbb2cfe32f9b4736775
         name: workload
         ports:
         - containerPort: 8080
