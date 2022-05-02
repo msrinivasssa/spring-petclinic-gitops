@@ -8,6 +8,8 @@ metadata:
     apps.kubernetes.io/name: spring-petclinic-gitops
     apps.tanzu.vmware.com/has-tests: "true"
     apps.tanzu.vmware.com/workload-type: web
+    velero.io/backup-name: tap-apps-290422
+    velero.io/restore-name: tap-apps-290422-20220502092854
     app.kubernetes.io/component: run
     carto.run/workload-name: spring-petclinic-gitops-02
 spec:
