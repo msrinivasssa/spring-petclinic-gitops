@@ -21,8 +21,8 @@ spec:
           spring-boot-convention/spring-boot-web
           spring-boot-convention/spring-boot-actuator
           spring-boot-convention/service-intent-mysql
-          appliveview-sample/app-live-view-connector
-          appliveview-sample/app-live-view-appflavours
+          appliveview-sample/app-live-view-connector-boot
+          appliveview-sample/app-live-view-appflavours-boot
           appliveview-sample/app-live-view-systemproperties
         developer.conventions/target-containers: workload
         services.conventions.apps.tanzu.vmware.com/mysql: mysql-connector-java/8.0.26
@@ -38,7 +38,7 @@ spec:
         tanzu.app.live.view: "true"
         tanzu.app.live.view.application.actuator.port: "8081"
         tanzu.app.live.view.application.flavours: spring-boot
-        tanzu.app.live.view.application.name: petclinic
+        tanzu.app.live.view.application.name: spring-petclinic-gitops-03
     spec:
       containers:
       - env:
@@ -48,7 +48,7 @@ spec:
           value: |-
             -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=9005
              -Dmanagement.endpoint.health.probes.add-additional-paths="true" -Dmanagement.endpoint.health.show-details=always -Dmanagement.endpoints.web.base-path="/actuator" -Dmanagement.endpoints.web.exposure.include=* -Dmanagement.health.probes.enabled="true" -Dmanagement.server.port="8081" -Dserver.port="8080" -Dserver.shutdown.grace-period="24s" -Dspring.devtools.restart.enabled="true" -Dspring.devtools.restart.poll-interval="2s" -Dspring.devtools.restart.quiet-period="1s"
-        image: harbor-repo.vmware.com/tanzu_aee/msrinivasssa/apps/spring-petclinic-gitops-03-my-apps@sha256:df7644a5ce750e705de9f5b4c7472e2351907dff1ea6682579615a06766f3e19
+        image: cloudfocusedreg.azurecr.io/tap-integration-repo/msrinivasssa/apps/spring-petclinic-gitops-03-my-apps@sha256:34a85d7f07e50942760fbca2e41674cc6fda6327fe811c2ca259796239c7edb6
         name: workload
         ports:
         - containerPort: 8080
